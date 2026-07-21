@@ -9,3 +9,5 @@ site/.vitepress/.build-cache/
 site/.vitepress/.build-tmp/
 *.tgz
 .pnpm-store/
+
+.claude/

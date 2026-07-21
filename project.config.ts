@@ -18,6 +18,7 @@ export default defineProject({
     'zh-CN': [
       { text: '首页', link: '/' },
       { text: '教程', link: '/tutorial/' },
+      { text: '规划', link: '/planning/' },
       { text: 'GitHub', link: 'https://github.com/Awesome-Embedded-Learning-Studio/ST-Forge' },
     ],
   },
@@ -25,6 +26,7 @@ export default defineProject({
   sidebar: {
     volumes: [
       { name: 'tutorial', srcDir: 'tutorial', urlPrefix: '/tutorial' },
+      { name: 'planning', srcDir: 'planning', urlPrefix: '/planning' },
     ],
   },
 
