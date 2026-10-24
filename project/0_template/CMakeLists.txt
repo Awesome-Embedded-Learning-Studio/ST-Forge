@@ -41,13 +41,13 @@ add_compile_options(
 
 add_executable(${PROJECT_NAME}.elf 
     main.c
-    system.c
+    firmware/system.c
     ${CMSIS_TMPL}/system_stm32f1xx.c
     ${CMSIS_TMPL}/gcc/startup_stm32f103xb.s
     ${HAL_SRC})
 
 target_include_directories(${PROJECT_NAME}.elf PRIVATE
-    ${CMAKE_SOURCE_DIR}                                          # stm32f1xx_hal_conf.h
+    ${CMAKE_SOURCE_DIR}/firmware                                          # stm32f1xx_hal_conf.h
     ${STM32F1_ROOT}/CMSIS/Include
     ${STM32F1_ROOT}/CMSIS/Device/ST/STM32F1xx/Include
     ${STM32F1_ROOT}/STM32F1xx_HAL_Driver/Inc
@@ -57,7 +57,7 @@ target_link_options(${PROJECT_NAME}.elf PRIVATE
     -mcpu=cortex-m3
     -mthumb
     -flto
-    -T${CMAKE_SOURCE_DIR}/STM32F103C8TX_FLASH.ld
+    -T${CMAKE_SOURCE_DIR}/firmware/STM32F103C8TX_FLASH.ld
     -nostartfiles
     -specs=nano.specs
     -specs=nosys.specs

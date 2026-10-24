@@ -15,15 +15,18 @@ title: 02 — 项目结构
 ```
 project/0_template/
 ├── main.c                      # 咱们写的应用：点灯逻辑
-├── system.c                    # 系统时钟配置
+├── firmware/                   # 公共底座，复制新工程时基本不动
+│   ├── system.c                # 系统时钟配置
+│   ├── stm32f1xx_hal_conf.h    # HAL 库的开关：启用哪些外设模块
+│   └── STM32F103C8TX_FLASH.ld  # 链接脚本：代码放芯片的哪块内存
+├── tools/
+│   └── check.sh                # 自检脚本：工具链、依赖、从零编译
 ├── CMakeLists.txt              # 构建配置：怎么编译、链接
-├── STM32F103C8TX_FLASH.ld      # 链接脚本：代码放芯片的哪块内存
-├── stm32f1xx_hal_conf.h        # HAL 库的开关：启用哪些外设模块
 ├── .vscode/launch.json         # 调试器配置
 └── build/                      # 编译产物（自动生成，别提交）
 ```
 
-分一下类就清楚了：`main.c`、`system.c` 是咱们会动笔写的应用代码；`CMakeLists.txt`、`.ld`、`hal_conf.h` 这三个是「配置文件」，告诉工具链怎么编译、代码放哪、HAL 开哪些模块；`launch.json` 是给 VS Code 调试器用的；`build/` 是编译出来的东西，可以随时删掉重来。
+分一下类就清楚了：`main.c` 是咱们会动笔写的应用代码；`firmware/` 里三样（`system.c`、`hal_conf.h`、链接脚本）是公共底座，复制新工程时基本不动；`tools/check.sh` 一条命令自检；`CMakeLists.txt` 是构建配置；`launch.json` 是给 VS Code 调试器用的；`build/` 是编译出来的东西，可以随时删掉重来。
 
 ## CMakeLists.txt：构建的中枢
 

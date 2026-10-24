@@ -15,16 +15,19 @@ title: 02 — 项目结构（WSL · Linux）
 ```
 project/0_template/
 ├── main.c                      # 咱们写的应用:点灯逻辑
-├── system.c                    # 系统时钟配置
+├── firmware/                   # 公共底座,复制新工程时基本不动
+│   ├── system.c                # 系统时钟配置
+│   ├── stm32f1xx_hal_conf.h    # HAL 库开关
+│   └── STM32F103C8TX_FLASH.ld  # 链接脚本:代码放芯片哪块内存
+├── tools/
+│   └── check.sh                # 自检脚本:工具链、依赖、从零编译
 ├── CMakeLists.txt              # 构建配置
-├── STM32F103C8TX_FLASH.ld      # 链接脚本:代码放芯片哪块内存
-├── stm32f1xx_hal_conf.h        # HAL 库开关
 ├── .vscode/launch.json         # 调试器配置
 ├── chmod_usb.sh                # WSL 下放开 ST-Link USB 权限的小脚本
 └── build/                      # 编译产物(自动生成,别提交)
 ```
 
-分一下类:`main.c`、`system.c` 是咱们会动笔写的应用代码;`CMakeLists.txt`、`.ld`、`hal_conf.h` 是配置文件;`launch.json` 给调试器;`chmod_usb.sh` 是 WSL 路线专属的小帮手([04 章](./04_build_and_flash)会用到);`build/` 是编译产物,随时能删。
+分一下类:`main.c` 是咱们会动笔写的应用代码;`firmware/` 里三样(`system.c`、`hal_conf.h`、链接脚本)是公共底座,复制新工程时基本不动;`tools/check.sh` 一条命令自检;`CMakeLists.txt` 是构建配置;`launch.json` 给调试器;`chmod_usb.sh` 是 WSL 路线专属的小帮手([04 章](./04_build_and_flash)会用到);`build/` 是编译产物,随时能删。
 
 ## CMakeLists.txt:构建的中枢
 
