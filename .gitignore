@@ -11,3 +11,5 @@ site/.vitepress/.build-tmp/
 .pnpm-store/
 
 .claude/
+# local IDE settings
+/.vscode/

@@ -7,7 +7,7 @@
             "request": "launch",
             "servertype": "openocd",
             "cwd": "${workspaceRoot}",
-            "executable": "build/STM32Demo.elf",
+            "executable": "build/STM32F1.elf",
             "configFiles": [
                 "interface/stlink.cfg",
                 "target/stm32f1x.cfg"

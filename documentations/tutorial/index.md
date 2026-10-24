@@ -55,18 +55,18 @@
 
 | 章节 | 文档 | 内容简介 |
 |------|------|----------|
-| 第 1 章 | [01_environment_setup](./0_env_setup/win/01_environment_setup) | 开发环境搭建，包括工具链安装、IDE 配置 |
-| 第 2 章 | [02_project_structure](./0_env_setup/win/02_project_structure) | 项目目录结构解析，CMake 构建系统介绍 |
-| 第 3 章 | [03_code_walkthrough](./0_env_setup/win/03_code_walkthrough) | 源代码逐行讲解，理解核心逻辑 |
-| 第 4 章 | [04_build_and_flash](./0_env_setup/win/04_build_and_flash) | 编译流程、固件烧录方法详解 |
-| 第 5 章 | [05_debugging](./0_env_setup/win/05_debugging) | 使用 GDB/J-Link/OpenOCD 进行调试 |
-| 第 6 章 | [06_stm32_basics](./0_env_setup/win/06_stm32_basics) | STM32 架构、存储器映射、外设基础 |
+| 第 1 章 | [01_environment_setup](./1_env_setup/win/01_environment_setup) | 开发环境搭建，包括工具链安装、IDE 配置 |
+| 第 2 章 | [02_project_structure](./1_env_setup/win/02_project_structure) | 项目目录结构解析，CMake 构建系统介绍 |
+| 第 3 章 | [03_code_walkthrough](./1_env_setup/win/03_code_walkthrough) | 源代码逐行讲解，理解核心逻辑 |
+| 第 4 章 | [04_build_and_flash](./1_env_setup/win/04_build_and_flash) | 编译流程、固件烧录方法详解 |
+| 第 5 章 | [05_debugging](./1_env_setup/win/05_debugging) | 使用 GDB/J-Link/OpenOCD 进行调试 |
+| 第 6 章 | [06_stm32_basics](./1_env_setup/win/06_stm32_basics) | STM32 架构、存储器映射、外设基础 |
 
 ### 附录
 
 | 附录 | 文档 | 内容简介 |
 |------|------|----------|
-| 附录 A | [appendix_hardware](./0_env_setup/win/appendix_hardware) | 硬件选型指南、开发板介绍、扩展模块推荐 |
+| 附录 A | [appendix_hardware](./1_env_setup/win/appendix_hardware) | 硬件选型指南、开发板介绍、扩展模块推荐 |
 
 ---
 
@@ -111,13 +111,13 @@
 
 ## 🔑 快速导航
 
-- 🚀 [环境配置](./0_env_setup/win/01_environment_setup) - 立即开始搭建开发环境
-- 📁 [项目结构](./0_env_setup/win/02_project_structure) - 了解项目是如何组织的
-- 💻 [代码详解](./0_env_setup/win/03_code_walkthrough) - 深入理解每一行代码
-- 🔧 [编译与烧录](./0_env_setup/win/04_build_and_flash) - 构建您的第一个固件
-- 🐛 [调试方法](./0_env_setup/win/05_debugging) - 学会诊断和修复问题
-- 📚 [STM32 基础概念](./0_env_setup/win/06_stm32_basics) - 打好理论基础
-- 🔌 [硬件选项](./0_env_setup/win/appendix_hardware) - 选择适合您的硬件
+- 🚀 [环境配置](./1_env_setup/win/01_environment_setup) - 立即开始搭建开发环境
+- 📁 [项目结构](./1_env_setup/win/02_project_structure) - 了解项目是如何组织的
+- 💻 [代码详解](./1_env_setup/win/03_code_walkthrough) - 深入理解每一行代码
+- 🔧 [编译与烧录](./1_env_setup/win/04_build_and_flash) - 构建您的第一个固件
+- 🐛 [调试方法](./1_env_setup/win/05_debugging) - 学会诊断和修复问题
+- 📚 [STM32 基础概念](./1_env_setup/win/06_stm32_basics) - 打好理论基础
+- 🔌 [硬件选项](./1_env_setup/win/appendix_hardware) - 选择适合您的硬件
 
 ---
 

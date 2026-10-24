@@ -29,7 +29,7 @@ ST-Forge 是一个面向 STM32 学习者的开源嵌入式开发工坊。项目�
 
 - 文档首页：[documentations/index.md](documentations/index.md)
 - 教程入口：[documentations/tutorial/index.md](documentations/tutorial/index.md)
-- 总体规划：[documentations/planning/index.md](documentations/planning/index.md)
+- 总体规划：课程大纲重构中（原 planning/ 文档已移除，git 历史可查）
 - 板卡资料：[boards/STM32F103C8T6_BluePill](boards/STM32F103C8T6_BluePill)
 
 ## 本地预览文档
