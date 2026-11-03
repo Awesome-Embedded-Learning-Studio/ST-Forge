@@ -1,5 +1,6 @@
 ---
 title: 嵌入式芯片调试神器-J-Link RTT
+lint: skip
 ---
 
 > 目标：
@@ -49,7 +50,7 @@ SEGGER RTT（Real Time Transfer）是一种用于嵌入式应用交互式用户 
 
 RTT 可以与支持后台内存访问的 J-Link 以及目标处理器配合使用。常见用途包括日志输出、变量观察、性能数据采集、命令行交互和故障现场记录。
 
-![J-Link RTT Viewer 的虚拟终端示意图](rtt-viewer-virtual-terminals.png)
+![J-Link RTT Viewer 的虚拟终端示意图](images/rtt-viewer-virtual-terminals.png)
 
 ### 3.2 调试器与目标板的“握手”过程
 
@@ -66,7 +67,7 @@ RTT 的通信是异步的，目标程序不需要等待调试器完成一次完�
 
 RTT 控制块位于目标 RAM 中，包含上行和下行缓冲区的描述符。J-Link 通过扫描已知的 ID 字符串定位控制块，再根据每个缓冲区的读写指针判断数据是否为空或已满。
 
-![RTT 控制块与环形缓冲区结构](rtt-control-block-ring-buffer.png)
+![RTT 控制块与环形缓冲区结构](images/rtt-control-block-ring-buffer.png)
 
 - **SEGGER_RTT 控制块**：保存缓冲区地址、大小、读写位置和 Flags。
 - **上行通道（Up Buffer）**：目标固件写入，J-Link/主机读取，方向是 MCU → PC。
@@ -86,14 +87,14 @@ RTT 是 SEGGER 提供的一种基于调试接口（SWD/JTAG）的数据通信机
 
 它不需要专门占用 MCU 的 UART、USB 等通信外设，而是利用 MCU 内存中的 RTT 控制块和缓冲区进行通信。J-Link 通过调试接口访问这些内存，PC 软件再显示日志或发送输入。
 
-![RTT 上行与下行方向示意图](rtt-up-down-buffer.png)
+![RTT 上行与下行方向示意图](images/rtt-up-down-buffer.png)
 
 RTT 有两种方向：
 
-| 类型 | 数据方向 | 主要用途 | MCU 常用 API |
-| --- | --- | --- | --- |
-| Up Buffer（上行缓冲区） | MCU → PC | 输出日志、调试信息、二进制数据 | `Write()`、`WriteString()`、`printf()` |
-| Down Buffer（下行缓冲区） | PC → MCU | 接收上位机命令、参数 | `Read()`、`GetKey()` |
+| 类型                      | 数据方向 | 主要用途                       | MCU 常用 API                           |
+| ------------------------- | -------- | ------------------------------ | -------------------------------------- |
+| Up Buffer（上行缓冲区）   | MCU → PC | 输出日志、调试信息、二进制数据 | `Write()`、`WriteString()`、`printf()` |
+| Down Buffer（下行缓冲区） | PC → MCU | 接收上位机命令、参数           | `Read()`、`GetKey()`                   |
 
 例如 STM32 执行：
 
@@ -166,14 +167,14 @@ SEGGER_RTT_printf(0,
 
 配置读取顺序为：`SEGGER_RTT.h` → `SEGGER_RTT_ConfDefaults.h` → `SEGGER_RTT_Conf.h`。指定工程的 `SEGGER/Config/SEGGER_RTT_Conf.h` 目前没有覆盖配置，因此默认值如下；编译命令中的宏定义仍可能覆盖它们。
 
-| 配置宏 | 默认值 | 含义 |
-| --- | --- | --- |
-| `SEGGER_RTT_MAX_NUM_UP_BUFFERS` | `3` | 最多 3 个上行通道槽位，索引 0、1、2 |
-| `SEGGER_RTT_MAX_NUM_DOWN_BUFFERS` | `3` | 最多 3 个下行通道槽位，索引 0、1、2 |
-| `BUFFER_SIZE_UP` | `1024` | 默认上行通道 0 的内存大小（字节） |
-| `BUFFER_SIZE_DOWN` | `16` | 默认下行通道 0 的内存大小（字节） |
-| `SEGGER_RTT_MODE_DEFAULT` | `SEGGER_RTT_MODE_NO_BLOCK_SKIP` | 通道 0 的默认模式 |
-| `SEGGER_RTT_PRINTF_BUFFER_SIZE` | `64u` | 格式化输出的临时缓冲区大小 |
+| 配置宏                            | 默认值                          | 含义                                |
+| --------------------------------- | ------------------------------- | ----------------------------------- |
+| `SEGGER_RTT_MAX_NUM_UP_BUFFERS`   | `3`                             | 最多 3 个上行通道槽位，索引 0、1、2 |
+| `SEGGER_RTT_MAX_NUM_DOWN_BUFFERS` | `3`                             | 最多 3 个下行通道槽位，索引 0、1、2 |
+| `BUFFER_SIZE_UP`                  | `1024`                          | 默认上行通道 0 的内存大小（字节）   |
+| `BUFFER_SIZE_DOWN`                | `16`                            | 默认下行通道 0 的内存大小（字节）   |
+| `SEGGER_RTT_MODE_DEFAULT`         | `SEGGER_RTT_MODE_NO_BLOCK_SKIP` | 通道 0 的默认模式                   |
+| `SEGGER_RTT_PRINTF_BUFFER_SIZE`   | `64u`                           | 格式化输出的临时缓冲区大小          |
 
 `SEGGER_RTT_ConfDefaults.h` 中与默认缓冲区大小相关的定义如下：
 
@@ -195,10 +196,10 @@ SEGGER_RTT_printf(0,
 
 下面的模式决定**写入方在缓冲区空间不足时怎么办**。
 
-| 完整宏名称 | 值 | 空间不足时的行为 |
-| --- | --- | --- |
-| `SEGGER_RTT_MODE_NO_BLOCK_SKIP` | `0` | 非阻塞；无法容纳本次完整写入时，本次不写入 |
-| `SEGGER_RTT_MODE_NO_BLOCK_TRIM` | `1` | 非阻塞；写入能容纳的部分，剩余部分舍弃 |
+| 完整宏名称                           | 值  | 空间不足时的行为                               |
+| ------------------------------------ | --- | ---------------------------------------------- |
+| `SEGGER_RTT_MODE_NO_BLOCK_SKIP`      | `0` | 非阻塞；无法容纳本次完整写入时，本次不写入     |
+| `SEGGER_RTT_MODE_NO_BLOCK_TRIM`      | `1` | 非阻塞；写入能容纳的部分，剩余部分舍弃         |
 | `SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL` | `2` | 阻塞；等待主机取走数据、腾出空间，直到本次写完 |
 
 例如写 20 字节但只剩 8 字节空间：SKIP 写入 0 字节，TRIM 写入 8 字节，BLOCK 等待后写入 20 字节。对 Down Buffer，PC 是通常的写入方，具体行为取决于主机端实现；配置成 BLOCK 不会让 MCU 的 `SEGGER_RTT_Read()` 自动等待。
@@ -211,25 +212,25 @@ SEGGER_RTT_printf(0,
 
 RTT 的一次短文本输出通常只需要完成格式化和一次内存写入，目标端耗时可以接近 `memcpy()` 的量级。实际表现仍取决于 J-Link 型号、调试接口速度、主机轮询频率、缓冲区大小和写入模式。
 
-![RTT 输出延迟示例](rtt-output-latency.png)
+![RTT 输出延迟示例](images/rtt-output-latency.png)
 
 ### 5.2 传输速度
 
 输出数据的最大速度由目标缓冲区能否持续吸收数据，以及 J-Link 和调试接口的读取速度共同决定。官方示例显示，即使目标缓冲区只有 512 字节，较高的接口速度也可能达到约 2 MB/s；普通 J-Link 型号的典型速度会低一些。不要把宣传中的峰值当作所有板卡都能稳定达到的吞吐量，应以自己的目标板和日志负载实测。
 
-![RTT 传输速度示例](rtt-transfer-speed.png)
+![RTT 传输速度示例](images/rtt-transfer-speed.png)
 
 ### 5.3 目标缓冲区大小
 
 缓冲区至少要能容纳一次突发写入；如果日志在 1 ms 内持续产生，还应覆盖这段时间的峰值数据量。缓冲区越大，越不容易因为 J-Link 暂时没有及时读取而丢日志，但会占用更多 RAM。
 
-![RTT 缓冲区大小示例](rtt-buffer-size.png)
+![RTT 缓冲区大小示例](images/rtt-buffer-size.png)
 
 ### 5.4 内存占用
 
 RTT 实现本身通常只占用少量 ROM；控制块和每个通道的描述符会占用 RAM，真正占空间的是各通道环形缓冲区。常见起点是上行 1 KB、下行 16～32 字节，再根据日志峰值和丢包情况调整。
 
-![RTT 内存占用示例](rtt-memory-usage.png)
+![RTT 内存占用示例](images/rtt-memory-usage.png)
 
 ### 5.5 性能取舍
 
